@@ -95,7 +95,7 @@ app.post('/upload', uploadMiddleware, upload.single('file'), async (req, res) =>
         }
 
         const uploadResult = await uploadFile(req.file.buffer)
-        const fileUrl = 'https://' + req.get('host') + '/view/' + uploadResult.path
+        const fileUrl = 'https://' + req.get('host') + '/files/' + uploadResult.path
 
         await sendTelegramNotification(
             uploadResult.filename,
@@ -142,7 +142,7 @@ app.post('/api/upload', apiMiddleware, upload.single('file'), async (req, res) =
 
         const clientIp = getClientIp(req)
         const uploadResult = await uploadFile(req.file.buffer)
-        const fileUrl = 'https://' + req.get('host') + '/view/' + uploadResult.path
+        const fileUrl = 'https://' + req.get('host') + '/files/' + uploadResult.path
 
         await sendTelegramNotification(
             uploadResult.filename,
@@ -192,17 +192,17 @@ app.get('/health', (req, res) => {
 
 app.get('/api', (req, res) => {
     res.json({
-        name: 'XTE Uploader API',
+        name: 'Fik Uploader API',
         version: '2.3',
         endpoints: {
             'POST /api/upload': 'Upload file (public)',
-            'GET /view/:filename': 'Get file (CDN)',
+            'GET /files/:filename': 'Get file (CDN)',
             'GET /health': 'Health check'
         }
     })
 })
 
-app.get('/view/:filename', async (req, res) => {
+app.get('/files/:filename', async (req, res) => {
     try {
         const filename = path.basename(req.params.filename)
 
