@@ -192,7 +192,7 @@ app.get('/health', (req, res) => {
 
 app.get('/api', (req, res) => {
     res.json({
-        name: 'Fik Uploader API',
+        name: 'XTE Uploader API',
         version: '2.3',
         endpoints: {
             'POST /api/upload': 'Upload file (public)',
